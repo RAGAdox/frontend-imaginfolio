@@ -1,0 +1,8 @@
+@import 'variables.scss';
+@import 'utilities.scss';
+@import 'typography.scss';
+
+* {
+  font-family: var(--primary-font) !important;
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,25 @@
+.custom-navber-container {
+  justify-content: center;
+  row-gap: 24px;
+  .link-button {
+    display: flex;
+    flex-direction: row;
+  }
+  .justify-center{
+    justify-content: center;
+  }
+  .nav-text{
+    width: 150px;
+    display: flex;
+    justify-content: center;
+  }
+}
+.hide-nav{
+  margin-left: -90px;
+}
+.bg-red{
+  background: red;
+}
+.bg-pink{
+  background: pink;
+}
