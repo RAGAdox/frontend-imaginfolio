@@ -40,18 +40,6 @@ const CustomCard = ({ src }: CustomCardProps) => {
             <IconBookmark />
           </Grid.Col>
         </Grid>
-        {/* <Grid>
-          <Grid.Col span={3} className="disp-f jc-c">
-            <Badge color="dark" variant="outline">
-              12345678
-            </Badge>
-          </Grid.Col>
-          <Grid.Col span={3} className="disp-f jc-c">
-            <Badge color="dark" variant="outline">
-              12342342355
-            </Badge>
-          </Grid.Col>
-        </Grid> */}
       </Card.Section>
       <Card.Section p="sm">
         <Text size="sm" lineClamp={4} color="dimmed" span>

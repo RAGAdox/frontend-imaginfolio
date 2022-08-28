@@ -16,11 +16,12 @@ import CustomNavbar from "./components/CustomNavbar";
 import { APPLICATION_LINKS, APPLICATION_TITLE } from "./utilities/constants";
 import { sentenceCase } from "./utilities/utilities";
 import CustomNavFooter from "./components/CustomNavFooter";
-import { useMediaQuery } from "@mantine/hooks";
+import { useDocumentTitle, useMediaQuery } from "@mantine/hooks";
 import Body from "./components/Body";
 
 export default function App() {
   const theme = useMantineTheme();
+  useDocumentTitle(sentenceCase(APPLICATION_TITLE));
   const [opened, setOpened] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)", true, {
     getInitialValueInEffect: false,
