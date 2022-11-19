@@ -1,31 +1,65 @@
-import { useState } from "react";
 import {
   AppShell,
-  Navbar,
-  Header,
-  Footer,
-  Aside,
-  Text,
-  MediaQuery,
   Burger,
-  useMantineTheme,
+  Footer,
+  Header,
+  MediaQuery,
   Title,
-  ScrollArea,
+  Tooltip,
+  UnstyledButton,
+  useMantineTheme,
 } from "@mantine/core";
+import { useDocumentTitle, useMediaQuery } from "@mantine/hooks";
+import { NavigationProgress } from "@mantine/nprogress";
+import { IconPlus } from "@tabler/icons";
+import { useCallback, useEffect, useState } from "react";
 import CustomNavbar from "./components/CustomNavbar";
+import CustomNavFooter from "./components/CustomNavFooter";
+import { useAppDispatch, useAppSelector } from "./hooks/stateHooks";
+import Router from "./routes/routes";
+import { checkAuthentication } from "./store/Features/User/slice";
+import { RootState } from "./store/store";
 import { APPLICATION_LINKS, APPLICATION_TITLE } from "./utilities/constants";
 import { sentenceCase } from "./utilities/utilities";
-import CustomNavFooter from "./components/CustomNavFooter";
-import { useDocumentTitle, useMediaQuery } from "@mantine/hooks";
-import Body from "./components/Body";
 
 export default function App() {
+  //HOOK VARIABLES
   const theme = useMantineTheme();
-  useDocumentTitle(sentenceCase(APPLICATION_TITLE));
+  const dispatch = useAppDispatch();
+
+  //REDUX STORE VARIABLES
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+
+  //LOCAL STATES
   const [opened, setOpened] = useState(false);
+  const [isCreatePostOpen, setIsCreatePostOpen] = useState<boolean>(false);
+
+  //COMPONENT SETUPS
+  useDocumentTitle(sentenceCase(APPLICATION_TITLE));
   const isMobile = useMediaQuery("(max-width: 768px)", true, {
     getInitialValueInEffect: false,
   });
+
+  //STATE CHANGE LISTENERS
+  useEffect(() => {
+    dispatch(checkAuthentication());
+  }, [dispatch]);
+
+  /* USING CALLBACKS FOR FUNCTIONS THAT ARE USINGS STATES OR STATE MODIFIERS */
+
+  // FUNCTIONS USED AS PROPS
+  const navbarItemsOnClick = useCallback(() => {
+    if (isMobile) setOpened(false);
+  }, [isMobile]);
+
+  const toggelNavbar = useCallback(() => {
+    setOpened((o) => !o);
+  }, []);
+
+  const openCreatePostModal = useCallback(() => {
+    setIsCreatePostOpen(!isCreatePostOpen);
+  }, [isCreatePostOpen]);
+
   return (
     <AppShell
       styles={{
@@ -42,19 +76,13 @@ export default function App() {
           isMobile={isMobile}
           links={APPLICATION_LINKS}
           showNavbar={opened}
+          navItemsOnClick={navbarItemsOnClick}
         />
       }
-      // aside={
-      //   <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-      //     <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-      //       <Text>Application sidebar</Text>
-      //     </Aside>
-      //   </MediaQuery>
-      // }
       footer={
         isMobile ? (
-          <Footer height={60} className={"disp-f jc-se"}>
-            <CustomNavFooter links={APPLICATION_LINKS} />
+          <Footer height={60} className={"disp-f jc-se ai-c"}>
+            <CustomNavFooter />
           </Footer>
         ) : (
           <></>
@@ -62,29 +90,46 @@ export default function App() {
       }
       header={
         <Header height={70} p="md">
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
+          <div className="disp-f jc-sb ai-c">
+            <div className="disp-f ai-c">
+              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={opened}
+                  onClick={toggelNavbar}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
 
-            <Title order={2} className="select-none">
-              {sentenceCase(APPLICATION_TITLE)}
-            </Title>
+              <Title order={2} className="select-none" variant="gradient">
+                {sentenceCase(APPLICATION_TITLE)}
+              </Title>
+            </div>
+            {isAuthenticated && (
+              <Tooltip
+                label="Create Post"
+                events={{ hover: true, focus: true, touch: false }}
+                position="top"
+                withArrow
+                transitionDuration={0}
+              >
+                <UnstyledButton
+                  className="disp-f"
+                  onClick={openCreatePostModal}
+                >
+                  <IconPlus size={30} />
+                </UnstyledButton>
+              </Tooltip>
+            )}
           </div>
+          <NavigationProgress />
         </Header>
       }
     >
-      {/* <ScrollArea type="always" style={{ height: `${isMobile?'80vh':'88vh'}` }} offsetScrollbars> */}
-        <Body />
-      {/* </ScrollArea> */}
+      <div className="select-none h100">
+        <Router />
+      </div>
     </AppShell>
   );
 }

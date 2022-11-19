@@ -1,16 +1,22 @@
 import {
-  IconHome2,
   IconAnkh,
-  IconUserCircle,
-  IconUser,
+  IconHome2,
   IconLogin,
   IconLogout,
+  IconUser,
+  IconUserCircle,
 } from "@tabler/icons";
-export const APPLICATION_TITLE = 'imaginfolio';
+import { openLogoutModalConfirmation } from "../modals";
+import { openLoginModal } from "../modals/Login";
+export const API_STATUS_PENDING = "pending";
+export const API_STATUS_COMPLETE = "completed";
+export const API_STATUS_UNSET = null;
+export const API_STATUS_REJECT = "REJECTED";
+export const APPLICATION_TITLE = "imaginfolio";
 export const APPLICATION_LINKS = [
   {
     text: "home",
-    href: "#",
+    href: "/",
     Icon: IconHome2,
   },
   {
@@ -32,11 +38,17 @@ export const APPLICATION_LINKS = [
         text: "Login",
         href: "#",
         Icon: IconLogin,
+        onClick: () => {
+          openLoginModal();
+        },
       },
       {
         text: "Logout",
         href: "#",
         Icon: IconLogout,
+        onClick: () => {
+          openLogoutModalConfirmation();
+        },
       },
     ],
   },

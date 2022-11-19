@@ -1,0 +1,18 @@
+.ReactCrop {
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.aspectRatioContainer {
+  width: fit-content;
+}
+
+.previewCroppedImage {}
+
+.imageCropWrapper {
+  img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 40vh;
+  }
+}

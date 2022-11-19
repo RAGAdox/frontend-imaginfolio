@@ -1,12 +1,70 @@
 @use "sass:math";
-.select-none{
+
+.word-break {
+  word-break: break-word;
+}
+
+.select-none {
   user-select: none;
 }
+
+.w100 {
+  width: 100%;
+}
+
+.w75 {
+  width: 75%;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w25 {
+  width: 25%;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.h75 {
+  height: 75%;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-no-wrap {
+  flex-wrap: nowrap;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.visible {
+  visibility: visible
+}
+
+.hidden {
+  visibility: hidden
+}
+
 $utilities: (
-  "padding": (
-    "prefix": "p",
-    "values": (
-      "0": 0,
+  "position":("prefix":"pos",
+    "values":("absolute":absolute,
+      "fixed":fixed,
+      "inherit":inherit,
+      "initial":initial,
+      "unset":unset,
+      "relative":relative,
+      "rev":revert,
+      "static":static,
+      "sticky":sticky)),
+  "padding": ("prefix": "p",
+    "values": ("0": 0,
       "1": $base-padding,
       "2": $base-padding * 2,
       "3": $base-padding * 4,
@@ -14,10 +72,8 @@ $utilities: (
       "5": $base-padding * 8,
     ),
   ),
-  "padding-left": (
-    "prefix": "pl",
-    "values": (
-      "0": 0,
+  "padding-left": ("prefix": "pl",
+    "values": ("0": 0,
       "1": $base-padding,
       "2": $base-padding * 2,
       "3": $base-padding * 4,
@@ -25,10 +81,8 @@ $utilities: (
       "5": $base-padding * 8,
     ),
   ),
-  "padding-right": (
-    "prefix": "pr",
-    "values": (
-      "0": 0,
+  "padding-right": ("prefix": "pr",
+    "values": ("0": 0,
       "1": $base-padding,
       "2": $base-padding * 2,
       "3": $base-padding * 4,
@@ -36,10 +90,8 @@ $utilities: (
       "5": $base-padding * 8,
     ),
   ),
-  "padding-top": (
-    "prefix": "pt",
-    "values": (
-      "0": 0,
+  "padding-top": ("prefix": "pt",
+    "values": ("0": 0,
       "1": $base-padding,
       "2": $base-padding * 2,
       "3": $base-padding * 4,
@@ -47,10 +99,8 @@ $utilities: (
       "5": $base-padding * 8,
     ),
   ),
-  "padding-bottom": (
-    "prefix": "pb",
-    "values": (
-      "0": 0,
+  "padding-bottom": ("prefix": "pb",
+    "values": ("0": 0,
       "1": $base-padding,
       "2": $base-padding * 2,
       "3": $base-padding * 4,
@@ -58,10 +108,35 @@ $utilities: (
       "5": $base-padding * 8,
     ),
   ),
-  "margin": (
-    "prefix": "m",
-    "values": (
-      "0": 0,
+  "padding-inline": ("prefix": "p-i",
+    "values": ("0": 0,
+      "1": $base-padding,
+      "2": $base-padding * 2,
+      "3": $base-padding * 4,
+      "4": $base-padding * 6,
+      "5": $base-padding * 8,
+    ),
+  ),
+  "padding-block": ("prefix": "p-b",
+    "values": ("0": 0,
+      "1": $base-padding,
+      "2": $base-padding * 2,
+      "3": $base-padding * 4,
+      "4": $base-padding * 6,
+      "5": $base-padding * 8,
+    ),
+  ),
+  "margin": ("prefix": "m",
+    "values": ("0": 0,
+      "1": $base-margin,
+      "2": $base-margin * 2,
+      "3": $base-margin * 4,
+      "4": $base-margin * 6,
+      "5": $base-margin * 8,
+      "auto":auto),
+  ),
+  "margin-left": ("prefix": "ml",
+    "values": ("0": 0,
       "1": $base-margin,
       "2": $base-margin * 2,
       "3": $base-margin * 4,
@@ -69,10 +144,8 @@ $utilities: (
       "5": $base-margin * 8,
     ),
   ),
-  "margin-left": (
-    "prefix": "ml",
-    "values": (
-      "0": 0,
+  "margin-right": ("prefix": "mr",
+    "values": ("0": 0,
       "1": $base-margin,
       "2": $base-margin * 2,
       "3": $base-margin * 4,
@@ -80,10 +153,8 @@ $utilities: (
       "5": $base-margin * 8,
     ),
   ),
-  "margin-right": (
-    "prefix": "mr",
-    "values": (
-      "0": 0,
+  "margin-top": ("prefix": "mt",
+    "values": ("0": 0,
       "1": $base-margin,
       "2": $base-margin * 2,
       "3": $base-margin * 4,
@@ -91,10 +162,8 @@ $utilities: (
       "5": $base-margin * 8,
     ),
   ),
-  "margin-top": (
-    "prefix": "mt",
-    "values": (
-      "0": 0,
+  "margin-bottom": ("prefix": "mb",
+    "values": ("0": 0,
       "1": $base-margin,
       "2": $base-margin * 2,
       "3": $base-margin * 4,
@@ -102,10 +171,8 @@ $utilities: (
       "5": $base-margin * 8,
     ),
   ),
-  "margin-bottom": (
-    "prefix": "mb",
-    "values": (
-      "0": 0,
+  "margin-inline": ("prefix": "m-i",
+    "values": ("0": 0,
       "1": $base-margin,
       "2": $base-margin * 2,
       "3": $base-margin * 4,
@@ -113,10 +180,17 @@ $utilities: (
       "5": $base-margin * 8,
     ),
   ),
-  "opacity": (
-    "prefix": "o",
-    "values": (
-      "10": 0.1,
+  "margin-block": ("prefix": "m-b",
+    "values": ("0": 0,
+      "1": $base-margin,
+      "2": $base-margin * 2,
+      "3": $base-margin * 4,
+      "4": $base-margin * 6,
+      "5": $base-margin * 8,
+    ),
+  ),
+  "opacity": ("prefix": "o",
+    "values": ("10": 0.1,
       "20": 0.2,
       "30": 0.3,
       "40": 0.4,
@@ -128,62 +202,56 @@ $utilities: (
       "100": 1,
     ),
   ),
-  "display": (
-    "prefix": "disp",
-    "values": (
-      "n": none,
+  "display": ("prefix": "disp",
+    "values": ("n": none,
       "b": block,
       "f": flex,
+      "g":grid,
       "i": inline,
       "i-b": inline-block,
+      "i-f":inline-flex,
+      "i-g":inline-grid,
     ),
   ),
-  "flex-direction":(
-    "prefix":"fd",
-    "values":(
-      "row":row,
+  "flex-direction":("prefix":"fd",
+    "values":("row":row,
       "col":column,
       "row-reverse":row-reverse,
       "col-reverse":column-reverse,
-    )
-  ),
-  "row-gap":(
-    "prefix":"rg",
-    "values":(
-      "0":0,
+    )),
+  "row-gap":("prefix":"rg",
+    "values":("0":0,
       "1":$base-row-gap,
       "2":$base-row-gap*2,
       "3":$base-row-gap*3,
       "4":$base-row-gap*4,
-      "5":$base-row-gap*5
-    )
-  ),
-  "column-gap":(
-    "prefix":"cg",
-    "values":(
-      "0":0,
+      "5":$base-row-gap*5 )),
+  "column-gap":("prefix":"cg",
+    "values":("0":0,
       "1":$base-col-gap,
       "2":$base-col-gap*2,
       "3":$base-col-gap*3,
       "4":$base-col-gap*4,
-      "5":$base-col-gap*5
-    )
-  ),
-  "justify-content":(
-    "prefix":"jc",
-    "values":(
-      "c":center,
+      "5":$base-col-gap*5 )),
+  "justify-content":("prefix":"jc",
+    "values":("c":center,
       "fs":flex-start,
       "fe":flex-end,
       "sb":space-between,
       "sa":space-around,
       "se":space-evenly,
-    )
-  ),
-  "font-size": (
-    "prefix": "font",
-    "values": (
-      "sm": $font-size-sm,
+    )),
+  "align-items":("prefix":"ai",
+    "values":("c":center,
+      "f-s":flex-start,
+      "f-e":flex-end,
+      "start":start,
+      "end":end,
+      "s":stretch,
+      "b":baseline,
+    )),
+  "font-size": ("prefix": "font",
+    "values": ("sm": $font-size-sm,
       "md": $base-font-size,
       "lg": $font-size-lg,
       "xl": $font-size-xl,
@@ -192,16 +260,20 @@ $utilities: (
   ),
 );
 
-@each $property, $map in $utilities {
+@each $property,
+$map in $utilities {
   $prefix: map-get($map, "prefix");
   $values: map-get($map, "values");
 
-  @each $k, $v in $values {
-    @if ($k== "default") {
+  @each $k,
+  $v in $values {
+    @if ($k=="default") {
       .#{$prefix} {
         #{$property}: $v;
       }
-    } @else {
+    }
+
+    @else {
       .#{$prefix}-#{$k} {
         #{$property}: $v;
       }
