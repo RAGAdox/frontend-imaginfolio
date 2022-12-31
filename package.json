@@ -59,7 +59,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prodstart": "npx react-inject-env set && npx http-server build"
+    "prodstart": "npx react-inject-env set && npx http-server -p 4000 --proxy http://0.0.0.0:4000/? build"
   },
   "eslintConfig": {
     "extends": [
