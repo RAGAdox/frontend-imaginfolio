@@ -16,6 +16,7 @@ import { useCallback, useEffect, useState } from "react";
 import CustomNavbar from "./components/CustomNavbar";
 import CustomNavFooter from "./components/CustomNavFooter";
 import { useAppDispatch, useAppSelector } from "./hooks/stateHooks";
+import CreatePost from "./modals/CreatePost";
 import Router from "./routes/routes";
 import { checkAuthentication } from "./store/Features/User/slice";
 import { RootState } from "./store/store";
@@ -56,9 +57,9 @@ export default function App() {
     setOpened((o) => !o);
   }, []);
 
-  const openCreatePostModal = useCallback(() => {
-    setIsCreatePostOpen(!isCreatePostOpen);
-  }, [isCreatePostOpen]);
+  const openCreatePost = useCallback(() => {
+    setIsCreatePostOpen((v) => !v);
+  }, []);
 
   return (
     <AppShell
@@ -114,10 +115,7 @@ export default function App() {
                 withArrow
                 transitionDuration={0}
               >
-                <UnstyledButton
-                  className="disp-f"
-                  onClick={openCreatePostModal}
-                >
+                <UnstyledButton className="disp-f" onClick={openCreatePost}>
                   <IconPlus size={30} />
                 </UnstyledButton>
               </Tooltip>
@@ -130,6 +128,7 @@ export default function App() {
       <div className="select-none h100">
         <Router />
       </div>
+      <CreatePost open={isCreatePostOpen} setOpen={setIsCreatePostOpen} />
     </AppShell>
   );
 }
